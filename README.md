@@ -314,7 +314,7 @@ power_platform_environments = [...]                  # Free for Developer
 - Federated Identity Credentials (Workload Identity)
 - No client secrets in code or environment variables
 
-**Azure Functions → Dataverse:**
+**APIM (Optional) → Azure Functions → Dataverse:**
 - Service Principal with OAuth2
 - On-Behalf-Of (OBO) flow for user context                      # Custom connector to be defined manually in maker portal
 - Client credentials flow for app-only scenarios
