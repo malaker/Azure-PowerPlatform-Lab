@@ -1,0 +1,45 @@
+{
+  "name": "test_account_dataset",
+  "properties": {
+    "additionalProperties": null,
+    "annotations": [],
+    "columnDelimiter": ",",
+    "compressionCodec": null,
+    "compressionLevel": null,
+    "description": null,
+    "encodingName": null,
+    "escapeChar": "\\",
+    "firstRowAsHeader": true,
+    "folder": null,
+    "linkedServiceName": {
+      "parameters": null,
+      "referenceName": "ls-blob-storage",
+      "type": "LinkedServiceReference"
+    },
+    "location": {
+      "additionalProperties": null,
+      "container": "blobs",
+      "fileName": "data.csv",
+      "folderPath": "data",
+      "type": "AzureBlobStorageLocation"
+    },
+    "nullValue": null,
+    "parameters": null,
+    "quoteChar": "\"",
+    "rowDelimiter": null,
+    "schema": [
+      {
+        "name": "accountid",
+        "type": "String"
+      },
+      {
+        "name": "name",
+        "type": "String"
+      }
+    ],
+    "structure": null,
+    "type": "DelimitedText"
+  },
+  "resourceGroup": "rg-dev-datafactory",
+  "type": "Microsoft.DataFactory/factories/datasets"
+}

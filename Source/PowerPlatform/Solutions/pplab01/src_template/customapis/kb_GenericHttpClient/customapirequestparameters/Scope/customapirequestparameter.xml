@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Scope">
+  <description default="OAuth 2.0 Scope">
+    <label description="OAuth 2.0 Scope" languagecode="1033" />
+  </description>
+  <displayname default="GenericHttpClient-In-Scope">
+    <label description="GenericHttpClient-In-Scope" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>GenericHttpClient-In-Scope</name>
+  <type>10</type>
+</customapirequestparameter>

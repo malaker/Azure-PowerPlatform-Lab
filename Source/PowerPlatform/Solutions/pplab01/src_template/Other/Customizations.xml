@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25103.169" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25103.00169">
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+  <managedidentities>
+    <managedidentity managedidentityid="{REPLACE_MANAGEDIDENTITYID}">
+      <applicationid>{{REPLACE_MANAGEDIDENTITYID}}</applicationid>
+      <credentialsource>2</credentialsource>
+      <identitytype>0</identitytype>
+      <iscustomizable>1</iscustomizable>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+      <subjectscope>1</subjectscope>
+      <tenantid>{REPLACE_TENANTID}</tenantid>
+      <version>1</version>
+    </managedidentity>
+  </managedidentities>
+</ImportExportXml>
+
+
+
+

@@ -1,0 +1,75 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "contentVersion": "1.0.0.0",
+        "triggers": {
+            "Recurrence": {
+                "type": "Recurrence",
+                "recurrence": {
+                    "interval": 1,
+                    "frequency": "Hour"
+                }
+            }
+        },
+        "actions": {
+            "List_rows": {
+                "type": "ApiConnection",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "referenceName": "commondataservice-dev"
+                        }
+                    },
+                    "method": "get",
+                    "headers": {
+                        "prefer": "odata.include-annotations=*",
+                        "accept": "application/json;odata.metadata=full",
+                        "organization": "@appsetting('Dataverse_Url')"
+                    },
+                    "path": "/api/data/v9.1/@{encodeURIComponent(encodeURIComponent('accounts'))}"
+                },
+                "runAfter": {
+                    "Compose": [
+                        "Succeeded"
+                    ]
+                }
+            },
+            "Compose": {
+                "type": "Compose",
+                "inputs": {
+                    "url": "@appsetting('Dataverse_Url')",
+                    "testParam": "@{parameters('testParam')}"
+                },
+                "runAfter": {}
+            },
+            "Perform_an_unbound_action": {
+                "type": "ApiConnection",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "referenceName": "commondataservice-dev"
+                        }
+                    },
+                    "method": "post",
+                    "body": {
+                        "HttpMethod": "GET",
+                        "BaseUri": "@appsetting('APIM_BaseUri')",
+                        "RelativeUri": "/bff/WhoAmIS2S",
+                        "Scope": "@appsetting('APIM_Scope')"
+                    },
+                    "headers": {
+                        "organization": "@appsetting('Dataverse_Url')"
+                    },
+                    "path": "/api/data/v9.2/@{encodeURIComponent(encodeURIComponent('kb_GenericHttpClient'))}"
+                },
+                "runAfter": {
+                    "List_rows": [
+                        "Succeeded"
+                    ]
+                }
+            }
+        },
+        "outputs": {}
+    },
+    "kind": "stateful"
+}

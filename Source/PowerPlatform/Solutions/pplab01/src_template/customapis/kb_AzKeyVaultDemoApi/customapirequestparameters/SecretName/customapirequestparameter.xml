@@ -1,0 +1,9 @@
+<customapirequestparameter uniquename="SecretName">
+  <displayname default="AzKeyVaultDemoApi-In-SecretName">
+    <label description="AzKeyVaultDemoApi-In-SecretName" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>AzKeyVaultDemoApi-In-SecretName</name>
+  <type>10</type>
+</customapirequestparameter>

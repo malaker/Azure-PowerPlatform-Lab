@@ -1,0 +1,21 @@
+{
+  "name": "dataverse_account_dataset",
+  "properties": {
+    "additionalProperties": null,
+    "annotations": [],
+    "description": null,
+    "entityName": "account",
+    "folder": null,
+    "linkedServiceName": {
+      "parameters": null,
+      "referenceName": "ls-dataverse",
+      "type": "LinkedServiceReference"
+    },
+    "parameters": null,
+    "schema": [],
+    "structure": null,
+    "type": "CommonDataServiceForAppsEntity"
+  },
+  "resourceGroup": "rg-dev-datafactory",
+  "type": "Microsoft.DataFactory/factories/datasets"
+}

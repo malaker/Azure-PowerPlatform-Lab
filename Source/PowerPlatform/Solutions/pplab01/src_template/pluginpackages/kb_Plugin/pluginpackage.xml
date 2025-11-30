@@ -1,0 +1,15 @@
+<pluginpackage uniquename="kb_Plugin">
+  <exportkeyversion>1</exportkeyversion>
+  <iscustomizable>1</iscustomizable>
+  <name>kb_Plugin</name>
+  <managedidentityid>
+    <managedidentityid>{REPLACE_MANAGEDIDENTITYID}</managedidentityid>
+  </managedidentityid>
+  <package mimetype="application/octet-stream">kb_Plugin.nupkg</package>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <version>1.0.0</version>
+</pluginpackage>
+
+
+

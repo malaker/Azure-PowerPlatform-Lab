@@ -1,0 +1,34 @@
+{
+    "version": "2.0",
+    "logging": {
+        "logLevel": {
+            "default": "Information",
+            "Host.Results": "Information",
+            "Function": "Information",
+            "Host.Aggregator": "Trace",
+            "Microsoft": "Warning",
+            "Microsoft.AspNetCore": "Warning"
+        },
+        "applicationInsights": {
+            
+            "samplingSettings": {
+                "isEnabled": false,
+                "maxTelemetryItemsPerSecond": 20,
+                "excludedTypes": "Request;Information;Warning;Exception"
+            },
+            "enableLiveMetricsFilters": true,
+            "enableDependencyTracking": true,
+            "enablePerformanceCountersCollection": true,
+            "httpAutoCollectionOptions": {
+                "enableHttpTriggerExtendedInfoCollection": true,
+                "enableW3CDistributedTracing": true,
+                "enableResponseHeaderInjection": true
+            }
+        }
+    },
+    "extensions": {
+        "http": {
+            "routePrefix": "api"
+        }
+    }
+}

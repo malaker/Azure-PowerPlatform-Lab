@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="HttpMethod">
+  <description default="GET value supported">
+    <label description="GET value supported" languagecode="1033" />
+  </description>
+  <displayname default="GenericHttpClient-In-HttpMethod">
+    <label description="GenericHttpClient-In-HttpMethod" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>GenericHttpClient-In-HttpMethod</name>
+  <type>10</type>
+</customapirequestparameter>

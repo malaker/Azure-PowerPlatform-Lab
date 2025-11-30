@@ -1,0 +1,18 @@
+<customapi uniquename="kb_GenericHttpClient">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Generic Http Client - supports HTTP GET operation and managed identity to access securely protected resources.">
+    <label description="Generic Http Client - supports HTTP GET operation and managed identity to access securely protected resources." languagecode="1033" />
+  </description>
+  <displayname default="[KB][IntegrationGuide] GenericHttpClient">
+    <label description="[KB][IntegrationGuide] GenericHttpClient" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>GenericHttpClient</name>
+  <plugintypeid>
+    <plugintypeexportkey>6C458D3316CEA81AC640AD071FB8EC0FC50D2F5463DA73F7AF480E8C3E2463A1</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

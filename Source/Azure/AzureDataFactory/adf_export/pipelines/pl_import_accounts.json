@@ -1,0 +1,82 @@
+{
+    "name": "pl_import_accounts",
+    "properties": {
+        "activities": [
+            {
+                "name": "Import Accounts",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "CommonDataServiceForAppsSink",
+                        "writeBatchSize": 10,
+                        "writeBehavior": "upsert"
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "mappings": [
+                            {
+                                "source": {
+                                    "name": "accountid",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "accountid"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "name"
+                                }
+                            }
+                        ],
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "test_account_dataset",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "dataverse_account_dataset",
+                        "type": "DatasetReference"
+                    }
+                ]
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2025-11-28T16:31:15Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

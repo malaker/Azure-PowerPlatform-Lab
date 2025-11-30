@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Azure/" />
+  <Folder Name="/Azure/Functions/">
+    <Project Path="Azure/Functions/FnBackend/FnBackend.csproj" />
+  </Folder>
+  <Folder Name="/PowerPlatform/">
+    <Project Path="PowerPlatform/Plugin/Plugin.csproj" />
+  </Folder>
+</Solution>

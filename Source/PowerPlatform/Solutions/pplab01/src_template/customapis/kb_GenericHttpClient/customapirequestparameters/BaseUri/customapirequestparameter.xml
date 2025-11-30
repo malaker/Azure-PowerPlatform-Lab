@@ -1,0 +1,9 @@
+<customapirequestparameter uniquename="BaseUri">
+  <displayname default="GenericHttpClient-In-BaseUri">
+    <label description="GenericHttpClient-In-BaseUri" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>GenericHttpClient-In-BaseUri</name>
+  <type>10</type>
+</customapirequestparameter>

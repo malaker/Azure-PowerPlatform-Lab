@@ -1,0 +1,8 @@
+<customapiresponseproperty uniquename="StatusCode">
+  <displayname default="GenericHttpClient-Out-StatusCode">
+    <label description="GenericHttpClient-Out-StatusCode" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>GenericHttpClient-Out-StatusCode</name>
+  <type>7</type>
+</customapiresponseproperty>

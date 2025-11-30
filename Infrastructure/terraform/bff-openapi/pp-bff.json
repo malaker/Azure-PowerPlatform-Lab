@@ -1,0 +1,145 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure Functions Backend API",
+    "description": "API for Microsoft Power Platform integration with Azure Functions and Dataverse. Protected with OAuth2 (Azure AD).",
+    "contact": {
+      "name": "API Support",
+      "email": "support@example.com"
+    },
+    "version": "v1"
+  },
+  "host": "",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/WhoAmI": {
+      "get": {
+        "tags": [
+          "Dataverse"
+        ],
+        "summary": "Get current user information using OBO flow",
+        "description": "Executes WhoAmI request against Dataverse using OAuth 2.0 On-Behalf-Of flow. Returns user, business unit, and organization IDs. Requires OAuth2 authentication.",
+        "operationId": "WhoAmI",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with user information",
+            "schema": {
+              "$ref": "#/definitions/whoAmIResponseModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing token",
+            "schema": {
+              "$ref": "#/definitions/errorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/errorResponseModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "api://your-client-id/user_impersonation"
+            ]
+          }
+        ]
+      }
+    },
+    "/WhoAmIS2S": {
+      "get": {
+        "tags": [
+          "Dataverse"
+        ],
+        "summary": "Get application user information using S2S authentication",
+        "description": "Executes WhoAmI request against Dataverse for Server-to-Server authentication. Extracts the calling app registration ID from the access token, finds the corresponding application user in Dataverse, and returns information about that application user. Requires OAuth2 authentication.",
+        "operationId": "WhoAmIS2S",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with application user information",
+            "schema": {
+              "$ref": "#/definitions/whoAmIResponseModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing token",
+            "schema": {
+              "$ref": "#/definitions/errorResponseModel"
+            }
+          },
+          "404": {
+            "description": "Application user not found in Dataverse",
+            "schema": {
+              "$ref": "#/definitions/errorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/errorResponseModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "api://your-client-id/user_impersonation"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "errorResponseModel": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "whoAmIResponseModel": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "businessUnitId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "organizationId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "scopes": {
+        "api://your-client-id/user_impersonation": "Access the API as a user"
+      }
+    }
+  }
+}

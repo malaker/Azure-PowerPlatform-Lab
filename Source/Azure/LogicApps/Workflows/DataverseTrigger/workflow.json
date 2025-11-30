@@ -1,0 +1,41 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "contentVersion": "1.0.0.0",
+        "actions": {
+            "Compose": {
+                "type": "Compose",
+                "inputs": "@triggerBody()",
+                "runAfter": {}
+            }
+        },
+        "outputs": {},
+        "triggers": {
+            "When_a_row_is_added,_modified_or_deleted": {
+                "type": "ApiConnectionWebhook",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "referenceName": "commondataservice-dev"
+                        }
+                    },
+                    "body": {
+                        "entityname": "account",
+                        "message": 4,
+                        "scope": 4,
+                        "version": 1,
+                        "url": "@listCallbackUrl()"
+                    },
+                    "headers": {
+                        "organization": "@appsetting('Dataverse_Url')",
+                        "Consistency": "Strong",
+                        "catalog": "all",
+                        "category": "all"
+                    },
+                    "path": "/api/data/v9.1/callbackregistrations"
+                }
+            }
+        }
+    },
+    "kind": "Stateful"
+}

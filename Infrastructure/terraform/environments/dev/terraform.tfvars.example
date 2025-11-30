@@ -1,0 +1,240 @@
+# ===================================
+# Development Environment Configuration
+# ===================================
+
+environment     = "dev"
+project_name    = "pplab01"
+subscription_id = "YOUR AZURE SUBSCRIPTION ID" # Pay-As-You-Go subscription
+
+# ===================================
+# Organizational Tags
+# ===================================
+
+cost_center = "Cost Center"
+owner       = "PPLAB_OWNER"
+
+additional_tags = {
+  CostOptimization = "enabled"
+  AutoShutdown     = "enabled"
+}
+
+# ===================================
+# Power Platform Defaults
+# ===================================
+
+# Default owner for Developer type Power Platform environments
+# Set this to your Entra ID (Azure AD) user GUID
+# You can find it with: az ad signed-in-user show --query id -o tsv
+default_power_platform_owner_id = null # "12345678-1234-1234-1234-123456789abc"
+
+# ===================================
+# Resource Groups
+# ===================================
+# Format: rg-{environment}-{name}
+# Example: rg-dev-keyvaults, rg-dev-logicapps
+
+resource_groups = [
+  {
+    name    = "keyvaults"
+    purpose = "Key Vault resources for secrets management"
+  },
+  {
+    name    = "network"
+    purpose = "Virtual networks, subnets, NSGs, and NAT Gateway"
+  },
+  {
+    name    = "logicapps"
+    purpose = "Logic Apps and integration workflows"
+  },
+  {
+    name    = "functions"
+    purpose = "Azure Functions and dedicated storage accounts"
+  },
+  {
+    name    = "datafactory"
+    purpose = "Azure Data Factory for ETL/ELT pipelines"
+  }
+]
+
+# ===================================
+# App Registrations
+# ===================================
+
+app_registrations = [
+  {
+    name             = "az-function-backend"
+    description      = "Azure Functions backend API (resource/audience for OAuth tokens)"
+    sign_in_audience = "AzureADMyOrg"
+
+    # Expose delegated permission (OAuth2 scope) for on-behalf-of flow
+    expose_api            = true
+    api_scope_name        = "access_as_user"
+    api_scope_description = "Access the API on behalf of a user"
+
+    # Expose application permission (app role) for client credentials flow
+    expose_app_roles = true
+    app_roles = [
+      {
+        display_name = "Access API as Application"
+        description  = "Allows the application to access the API without a signed-in user"
+        value        = "API.Access.All"
+        enabled      = true
+      }
+    ]
+
+    # Dynamics 365 CRM user_impersonation delegated permission
+    # This allows the Azure Function to call Dataverse APIs on behalf of the user
+    required_resource_access = [
+      {
+        resource_app_id = "00000007-0000-0000-c000-000000000000" # Dynamics 365 CRM
+        resource_access = [
+          {
+            id   = "78ce3f0f-a1ce-49c2-8cde-64b5c0896db4" # user_impersonation
+            type = "Scope"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name             = "power-platform-svc"
+    description      = "Service principal for Power Platform Dataverse plugins (client)"
+    sign_in_audience = "AzureADMyOrg"
+
+    # After first deployment, update with az-function-backend permissions
+    # Get client_id, api_scope_id, and app_role_ids from: terraform output
+    required_resource_access = [
+      {
+        # Dynamics 365 / Common Data Service
+        resource_app_id = "00000007-0000-0000-c000-000000000000"
+        resource_access = [
+          {
+            # user_impersonation (Delegated)
+            id   = "78ce3f0f-a1ce-49c2-8cde-64b5c0896db4"
+            type = "Scope"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name             = "logic-app-dataverse-svc"
+    description      = "Service principal for Logic Apps to access Dataverse"
+    sign_in_audience = "AzureADMyOrg"
+
+    # Dynamics 365 CRM user_impersonation delegated permission
+    # This allows Logic Apps to call Dataverse APIs using service principal authentication
+    required_resource_access = [
+      {
+        resource_app_id = "00000007-0000-0000-c000-000000000000" # Dynamics 365 CRM
+        resource_access = [
+          {
+            id   = "78ce3f0f-a1ce-49c2-8cde-64b5c0896db4" # user_impersonation
+            type = "Scope"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name             = "data-factory-dataverse-svc"
+    description      = "Service principal for Data Factory to access Dataverse"
+    sign_in_audience = "AzureADMyOrg"
+
+    # Dynamics 365 CRM user_impersonation delegated permission
+    # This allows Data Factory to call Dataverse APIs using service principal authentication
+    required_resource_access = [
+      {
+        resource_app_id = "00000007-0000-0000-c000-000000000000" # Dynamics 365 CRM
+        resource_access = [
+          {
+            id   = "78ce3f0f-a1ce-49c2-8cde-64b5c0896db4" # user_impersonation
+            type = "Scope"
+          }
+        ]
+      }
+    ]
+  }
+]
+
+
+#Dev environment defaults for initializing federated credentials for managed identity for Dataverse Plugin Package
+#Default approach here is using Trusted Certiticate that author has to sign the package if you do not have switch mode to development 
+#and provide hash (sha 256 ) of your self signed certificate
+powerplatform_federated_credential_mode = "production"
+powerplatform_federated_credential_issuer = "Certum Code Signing 2021 CA"
+powerplatform_federated_credential_certificate_subject = "\"Open Source Developer"
+
+#Uncomment this if you use self-signed certificate
+#powerplatform_federated_credential_mode = "development"
+#powerplatform_federated_credential_certificate_hash=""
+
+# ===================================
+# Key Vault Configuration
+# ===================================
+
+# Override defaults if needed (otherwise uses environment config from locals.tf)
+# key_vault_sku              = "standard"
+# soft_delete_retention_days = 7
+# enable_purge_protection    = false
+
+# ===================================
+# Network Configuration
+# ===================================
+
+# Set to true to enable NAT Gateway and Public Static IP 
+# for outgoing traffic so it is possible to whitelist it 
+# in e.g. Power Platform Environment (~$36.50/month)
+enable_nat_gateway = false 
+
+allowed_ip_addresses = [
+  # Add your IP addresses here
+  # "203.0.113.0/24"
+]
+
+# ===================================
+# Power Platform Configuration
+# ===================================
+
+power_platform_environments = [
+  {
+    name                         = "pplab01-dev"
+    description                  = "Power Platform development environment for pplab01"
+    location                     = "europe"              # Power Platform region
+    environment_type             = "Developer"
+    language_code                = 1033                  # English
+    currency_code                = "EUR"
+    create_app_user              = true
+    app_registration             = "power-platform-svc" # References app registration name
+    additional_app_registrations = ["az-function-backend", "logic-app-dataverse-svc", "data-factory-dataverse-svc"] # Additional app registrations to add as application users
+    security_roles               = ["Service Reader", "Service Writer"]
+    enable_managed_environment   = true                 # Enable Managed Environment features
+  }
+]
+
+# ===================================
+# Power Platform Subnet Delegation
+# ===================================
+
+# Enable subnet delegation on existing subnet-powerplatform for Power Platform enterprise policies
+# This delegates the subnet to Microsoft.PowerPlatform/enterprisePolicies for VNet integration
+enable_powerplatform_subnet_delegation = true  # Enable enterprise policy and subnet delegation
+
+# ===================================
+# Azure API Management
+# ===================================
+
+enable_api_management = false # Set to true to enable Azure API Management Developer Tier deployment ($48.04/month in dev)
+#apim_publisher_email  = "" # When enable_api_management = true, assign to apim_publisher_email your email address to get notification about APIM, your email is mandatory
+
+# ===================================
+# Azure Data Factory
+# ===================================
+
+enable_data_factory = false  # Set to true to enable Data Factory deployment (~$2-10/month in dev)
+
+# ===================================
+# Logic App Standard
+# ===================================
+
+enable_logic_apps   = false  # Set to true to enable Logic App Standard deployment (~$197/month in dev)

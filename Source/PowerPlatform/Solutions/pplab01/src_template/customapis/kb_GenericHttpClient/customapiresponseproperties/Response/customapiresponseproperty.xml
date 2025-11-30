@@ -1,0 +1,8 @@
+<customapiresponseproperty uniquename="Response">
+  <displayname default="GenericHttpClient-Out-Response">
+    <label description="GenericHttpClient-Out-Response" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <name>GenericHttpClient-Out-Response</name>
+  <type>10</type>
+</customapiresponseproperty>

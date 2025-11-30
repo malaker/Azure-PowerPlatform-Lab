@@ -1,0 +1,18 @@
+<customapi uniquename="kb_AzKeyVaultDemoApi">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Demo API tests access to given access key vault by retrieving secret. Secret is not returned. Plugin logs operation status.">
+    <label description="Demo API tests access to given access key vault by retrieving secret. Secret is not returned. Plugin logs operation status." languagecode="1033" />
+  </description>
+  <displayname default="[KB][IntegrationGuide] Az Key Vault Demo Api">
+    <label description="[KB][IntegrationGuide] Az Key Vault Demo Api" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>AzKeyVaultDemoApi</name>
+  <plugintypeid>
+    <plugintypeexportkey>647F4CE95900492D254F96C73A7C820C3F72DA8C9DC43C5008EDA53FBFF986E7</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

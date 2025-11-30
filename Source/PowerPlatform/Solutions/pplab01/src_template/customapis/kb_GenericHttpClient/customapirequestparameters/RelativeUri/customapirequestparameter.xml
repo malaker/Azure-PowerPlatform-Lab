@@ -1,0 +1,9 @@
+<customapirequestparameter uniquename="RelativeUri">
+  <displayname default="GenericHttpClient-In-RelativeUri">
+    <label description="GenericHttpClient-In-RelativeUri" languagecode="1033" />
+  </displayname>
+  <iscustomizable>0</iscustomizable>
+  <isoptional>0</isoptional>
+  <name>GenericHttpClient-In-RelativeUri</name>
+  <type>10</type>
+</customapirequestparameter>
