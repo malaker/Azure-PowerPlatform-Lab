@@ -187,7 +187,7 @@ Azure-PowerPlatform-Lab/
 
 ```powershell
 # Clone repository
-git clone https://github.com/yourusername/Azure-PowerPlatform-Lab.git
+git clone https://github.com/malaker/Azure-PowerPlatform-Lab.git
 cd Azure-PowerPlatform-Lab/Infrastructure/terraform
 
 
