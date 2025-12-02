@@ -144,7 +144,7 @@ resource "azurerm_subnet" "northeurope_powerplatform" {
   address_prefixes     = ["10.1.1.0/24"]
 
   # Service endpoints for Key Vault and Storage access
-  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage"]
+  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage", "Microsoft.Web"]
 
   delegation {
     name = "powerplatform-delegation"

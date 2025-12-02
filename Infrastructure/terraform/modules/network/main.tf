@@ -21,7 +21,7 @@ resource "azurerm_subnet" "powerplatform" {
   address_prefixes     = var.subnet_powerplatform_address_prefixes
 
   # Service endpoints for Key Vault and Storage access
-  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage"]
+  service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage", "Microsoft.Web"]
 
   # Optional: Delegation for Power Platform enterprise policies
   # Enable this when using Power Platform VNet integration
