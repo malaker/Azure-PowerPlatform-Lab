@@ -258,8 +258,15 @@ resource "null_resource" "integration_guide_solution" {
         $solutionFolder = Resolve-Path -Path $solutionFolderRaw -ErrorAction Stop | Select-Object -ExpandProperty Path
       }
 
-      #copy template solution file to actual solution src folder to inject tenantid and managedidentity id
-      Copy-Item "$solutionFolder\..\src_template\*" -Destination "${var.solution_folder}" -Recurse
+      # Clean destination folder before copying (ensures clean state)
+      if (Test-Path "$solutionFolder") {
+        Write-Host "Cleaning existing solution folder..."
+        Remove-Item "$solutionFolder\*" -Recurse -Force -ErrorAction SilentlyContinue
+      }
+
+      # Copy template solution file to actual solution src folder to inject tenantid and managedidentity id
+      Write-Host "Copying template files to solution folder..."
+      Copy-Item "$solutionFolder\..\src_template\*" -Destination "${var.solution_folder}" -Recurse -Force
 
       if ([System.IO.Path]::IsPathRooted($outputZipRaw)) {
         $outputZip = $outputZipRaw
@@ -307,6 +314,12 @@ resource "null_resource" "integration_guide_solution" {
       if (-not (Test-Path -LiteralPath $outputDir)) {
         Write-Host "Creating output directory: $outputDir"
         New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
+      }
+
+      # Remove existing zip to avoid pac tool conflicts
+      if (Test-Path -LiteralPath $outputZip) {
+        Write-Host "Removing existing ZIP file: $outputZip"
+        Remove-Item -LiteralPath $outputZip -Force
       }
 
       # Pack solution
